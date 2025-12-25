@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Chronomètre</title>
+
+  <style>
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: Arial, sans-serif;
+      background-image: url("rabbit-clock.jpg");
+      background-size: cover;
+      background-position: center;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: white;
+    }
+
+    .container {
+      background: rgba(0, 0, 0, 0.65);
+      padding: 30px 40px;
+      border-radius: 15px;
+      text-align: center;
+      box-shadow: 0 0 20px rgba(0,0,0,0.5);
+    }
+
+    h1 {
+      margin-bottom: 10px;
+    }
+
+    #time {
+      font-size: 48px;
+      margin: 20px 0;
+      letter-spacing: 2px;
+    }
+
+    button {
+      font-size: 16px;
+      padding: 10px 18px;
+      margin: 5px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    .start { background: #2ecc71; }
+    .stop { background: #e74c3c; }
+    .reset { background: #f1c40f; }
+
+    button:hover {
+      opacity: 0.85;
+    }
+
+    ul {
+      list-style: none;
+      padding: 0;
+      margin-top: 15px;
+      max-height: 120px;
+      overflow-y: auto;
+    }
+
+    li {
+      font-size: 14px;
+      margin: 4px 0;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="container">
+    <h1>⏱️ Chronomètre du Lapin Blanc</h1>
+    <p>Le temps file…</p>
+
+    <div id="time">00:00:00</div>
+
+    <button class="start" onclick="start()">Démarrer</button>
+    <button class="stop" onclick="stop()">Stop</button>
+    <button class="reset" onclick="reset()">Réinitialiser</button>
+    <button onclick="lap()">Tour</button>
+
+    <ul id="laps"></ul>
+  </div>
+
+  <script>
+    let seconds = 0;
+    let interval = null;
+    let lapCount = 0;
+
+    function start() {
+      if (interval) return;
+      interval = setInterval(() => {
+        seconds++;
+        updateTime();
+      }, 1000);
+    }
+
+    function stop() {
+      clearInterval(interval);
+      interval = null;
+    }
+
+    function reset() {
+      stop();
+      seconds = 0;
+      lapCount = 0;
+      document.getElementById("laps").innerHTML = "";
+      updateTime();
+    }
+
+    function lap() {
+      if (!interval) return;
+      lapCount++;
+      const li = document.createElement("li");
+      li.textContent = `Tour ${lapCount} — ${formatTime(seconds)}`;
+      document.getElementById("laps").appendChild(li);
+    }
+
+    function updateTime() {
+      document.getElementById("time").textContent = formatTime(seconds);
+    }
+
+    function formatTime(sec) {
+      const hrs = String(Math.floor(sec / 3600)).padStart(2, "0");
+      const mins = String(Math.floor((sec % 3600) / 60)).padStart(2, "0");
+      const secs = String(sec % 60).padStart(2, "0");
+      return `${hrs}:${mins}:${secs}`;
+    }
+  </script>
+
+</body>
+</html>
