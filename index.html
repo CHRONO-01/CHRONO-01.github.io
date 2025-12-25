@@ -130,5 +130,21 @@
     }
   </script>
 
+<div id="cookie-banner" style="position: fixed; bottom: 0; left: 0; width: 100%; background: #222; color: #fff; padding: 10px; text-align: center; display: none;">
+  Nous utilisons des cookies pour améliorer votre expérience.
+  <button id="accept-cookies">Accepter</button>
+</div>
+
+<script>
+  if (!localStorage.getItem('cookiesAccepted')) {
+    document.getElementById('cookie-banner').style.display = 'block';
+  }
+
+  document.getElementById('accept-cookies').onclick = function() {
+    localStorage.setItem('cookiesAccepted', 'true');
+    document.getElementById('cookie-banner').style.display = 'none';
+  }
+</script>
+
 </body>
 </html>
