@@ -19,7 +19,7 @@ Un chronomètre simple réalisé en **HTML, CSS et JavaScript**, fonctionnant di
 3. Cliquer sur **Démarrer**
 
 ## Démo en ligne
-https://CHRONO-01.github.io/chrono  
+CHRONO-01.github.io
 
 ## Structure du projet
 
